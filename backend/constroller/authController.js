@@ -1,5 +1,5 @@
 import { genToken } from "../config/token.js";
-import user from "../model/userModel.js";
+import User from "../model/userModel.js";
 import validator from "validator";
 import bcrypt from "bcryptjs";
 
@@ -7,7 +7,7 @@ export const registration = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    const existUser = await user.findOne({ email });
+    const existUser = await User.findOne({ email });
     if (existUser) {
       return res.status(400).json({ message: "User already exists" });
     }
@@ -21,7 +21,7 @@ export const registration = async (req, res) => {
     }
 
     let hashPassword = await bcrypt.hash(password, 10);
-    const newUser = await user.create({ name, email, password: hashPassword });
+    const newUser = await User.create({ name, email, password: hashPassword });
 
     let token = await genToken(newUser._id);
 
@@ -42,8 +42,24 @@ export const registration = async (req, res) => {
 export const login = async(req,res) =>{
   try{
     let {email,password} = req.body;
-    let user = await user.findOne({email})
-    
+    let user = await User.findOne({email})
+    if(!user){
+      return res.status(404).json({message:"user is not found"})
+    }
+    let isMatch = await bcrypt.compare(password,user.password);
+    if(!isMatch){
+      return res.status(400).json({message:"incorrect password"})
+    }
+ let token = await genToken(newUser._id);
+
+    res.cookie("token", token, {  
+      httpOnly: true,
+      secure: false, // set true in production (https)
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+    return res.status(201).json({message:"login successful"});
   }
   catch{}
 }
