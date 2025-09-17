@@ -21,9 +21,9 @@ export const registration = async (req, res) => {
     }
 
     let hashPassword = await bcrypt.hash(password, 10);
-    const newUser = await User.create({ name, email, password: hashPassword });
+    const user = await User.create({ name, email, password: hashPassword });
 
-    let token = await genToken(newUser._id);
+    let token = await genToken(user._id);
 
     res.cookie("token", token, {  
       httpOnly: true,
@@ -32,34 +32,59 @@ export const registration = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
 
-    return res.status(201).json(newUser);
+    return res.status(201).json(user);
   } catch (error) {
     console.log("register error", error);
     return res.status(500).json({ message: `registration error ${error}` });
   }
-};
+};export const login = async (req, res) => {
+  try {
+    let { email, password } = req.body;
 
-export const login = async(req,res) =>{
-  try{
-    let {email,password} = req.body;
-    let user = await User.findOne({email})
-    if(!user){
-      return res.status(404).json({message:"user is not found"})
-    }
-    let isMatch = await bcrypt.compare(password,user.password);
-    if(!isMatch){
-      return res.status(400).json({message:"incorrect password"})
-    }
- let token = await genToken(newUser._id);
+    console.log("req.body:", req.body);
 
-    res.cookie("token", token, {  
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
+    }
+
+    let user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    console.log("DB user password:", user.password);
+
+    let isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Incorrect password" });
+    }
+
+    let token = await genToken(user._id);
+
+    res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // set true in production (https)
+      secure: false,
       sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
 
-    return res.status(201).json({message:"login successful"});
+    return res.status(200).json({
+      message: "Login successful",
+      user: { id: user._id, name: user.name, email: user.email }
+    });
+  } catch (error) {
+    console.error("login error", error);
+    return res.status(500).json({ message: `login error: ${error.message}` });
   }
-  catch{}
+};
+
+export const logOut = async(req,res)=>{
+try{
+  res.clearCookie("token");
+  return res.status(200).json({message:"logout successful"})
+}
+catch{
+  console.log("login error")
+  return res.status(500).json({message:`logout error ${error}`})
+}
 }
