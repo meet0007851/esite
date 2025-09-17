@@ -1,21 +1,35 @@
-import express from "express"
-import dotenv from "dotenv"
+import express from "express";
+import dotenv from "dotenv";
 import connectDb from "./config/db.js";
 import cookieParser from "cookie-parser";
 import authRoute from "./routes/AuthRoute.js";
-dotenv.config()
-let port = process.env.PORT || 6000;
+import cors from "cors";
+
+dotenv.config();
+const port = process.env.PORT || 6000;
 
 const app = express();
+
+// Middlewares
+app.use(express.json());
+app.use(cookieParser());
+app.use(cors({
+  origin: ["http://localhost:5173", "http://localhost:3000"], // allow multiple origins
+  credentials: true
+}));
+
+
+// DB Connection
+connectDb();
+
+// Routes
 app.get("/", (req, res) => {
   res.send("Server is working 🚀");
 });
- connectDb()
-app.use(express.json());
-app.use(cookieParser())
-app.use("/api/auth",authRoute) 
-app.listen(port,()=>{
-    console.log(`hello from server http://localhost:${port} `);
-   
-})
-// mongodb+srv://rmeet0450_db_user:meet@123@cluster0.uoobp4n.mongodb.net/
+
+app.use("/api/auth", authRoute);
+
+// Start server
+app.listen(port, () => {
+  console.log(`✅ Server running at http://localhost:${port}`);
+});

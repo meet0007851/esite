@@ -20,9 +20,9 @@ function Login() {
       </div>
 
       <div className="w-[100%] h-[100px] flex items-center justify-center flex-col mb-2 gap-[10px]">
-        <span className="text-[25px] font-semibold">Registration</span>
+        <span className="text-[25px] font-semibold">Login</span>
         <span className="text-[16px]">
-          welcome to BuyCart, place your order
+          welcome to BuyCart
         </span>
       </div>
       <div className="max-w-[600px] w-[90%] h-[500px] bg-[#00000025] border-[1px] border-[#96969635] backdrop:blur-2xl rounded-lg shadow-lg flex items-center justify-center ">
@@ -42,12 +42,7 @@ function Login() {
           </div>
 
           <div className="w-[90%] h-[400px] flex flex-col items-center relative justify-center gap-[15px] ">
-            <input
-              type="text"
-              className="w-[100%] h-[50px] border-[2px] border-[#96969635] backdrop:blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold"
-              placeholder="UserName"
-              required
-            />
+             
             <input
               type="text"
               className="w-[100%] h-[50px] border-[2px] border-[#96969635] backdrop:blur-sm rounded-lg shadow-lg bg-transparent placeholder-[#ffffffc7] px-[20px] font-semibold"
@@ -60,17 +55,17 @@ function Login() {
               placeholder="Password"
               required
             />
-          {  show&&<IoEyeOutline className="h-[20px] w-[20px] absolute courser-pointer right-[7%]" onClick={()=>setShow(prev => !prev)}/>}
-           {!show&&<IoEye className="h-[20px] w-[20px] absolute courser-pointer right-[7%]" onClick={()=>setShow(prev => !prev)}/> }
+          {  show&&<IoEyeOutline className="h-[20px] w-[20px]  bottom-[57%] absolute courser-pointer right-[7%]" onClick={()=>setShow(prev => !prev)}/>}
+           {!show&&<IoEye className="h-[20px] w-[20px] bottom-[57%] absolute courser-pointer right-[7%]" onClick={()=>setShow(prev => !prev)}/> }
             <button className="w-[100%] h-[50px] bg-[#6060f5] rounded-lg flex items-center justify-center mt-[20px] text-[17px] font-semibold">
               Create Account
             </button>
 
             <p className="flex gap-[10px]">
-              Login
+              you have't any account
               <span
                 className="text-[#5555f6cf] text-[17px] font-semibold cursor-pointer"
-                onClick={() => navigate("/login")}
+                onClick={() => navigate("/signup")}
               >
                 Registration
               </span>
