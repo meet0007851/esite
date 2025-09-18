@@ -1,7 +1,7 @@
 import React, { createContext } from 'react'
 
 // Better to use PascalCase for context
-export const AuthDataContext = createContext()
+export const authDataContext = createContext()
 
 function AuthContext({ children }) {
   const serverUrl = "http://localhost:8000" 
@@ -11,9 +11,9 @@ function AuthContext({ children }) {
   }
 
   return (
-    <AuthDataContext.Provider value={value}>
+    <authDataContext.Provider value={value}>
       {children}
-    </AuthDataContext.Provider>
+    </authDataContext.Provider>
   )
 }
 

@@ -6,7 +6,7 @@ import authRoute from "./routes/AuthRoute.js";
 import cors from "cors";
 
 dotenv.config();
-const port = process.env.PORT || 6000;
+const port = 8000;
 
 const app = express();
 
@@ -14,9 +14,10 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:3000"], // allow multiple origins
+  origin: "http://localhost:5173",
   credentials: true
 }));
+
 
 
 // DB Connection

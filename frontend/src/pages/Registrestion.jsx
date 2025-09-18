@@ -1,37 +1,56 @@
 import React, { useContext, useState } from "react";
+import { signInWithPopup  } from "firebase/auth";
 import Logo from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import google from "../assets/google.png";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoEye } from "react-icons/io5";
-import { AuthDataContext } from "../context/authContext";
+import { authDataContext } from "../context/authContext";
+import { auth, provider } from "../../utils/Firebase";
 import axios from 'axios'
 function Registration() {
 
   const [show,setShow] =useState(false);
-  let {serverUrl} =useContext(AuthDataContext)
+  let {serverUrl} =useContext(authDataContext)
   let [name,SetName] = useState("")
   let [email,setEmail] = useState("");
   let [password,setPassword] = useState("");
   let navigate = useNavigate();
   
 
-  const handleSignup = async(e)=>{
-    e.preventDefault()
-    try{ 
-     const result = await axios.post(
-  serverUrl + "/api/auth/registration",
-  { name, email, password },
-  { withCredentials: true }   // ✅ correct spelling
-);
-console.log(result.data)
-}
-catch(error){
-
-  console.log(error)
-}
+ const handleSignup = async (e) => {
+  e.preventDefault();
+  try {
+    const res = await axios.post(
+      serverUrl + "/api/auth/registration",
+      { name, email, password },
+      { withCredentials: true }
+    );
+    console.log("Signup success:", res.data);
+  } catch (error) {
+    if (error.response) {
+      // 👇 This shows backend error message
+      console.log("Signup error:", error.response.data);
+    } else {
+      console.log("Network error:", error.message);
+    }
   }
-  return (
+};
+
+
+ const googleSignup = async () => {
+  try {
+    const response = await signInWithPopup(auth, provider);
+    let user = response.user;
+    let name = user.displayName;
+    let email = user.email;
+      const result = await axios.post(serverUrl + "/api/auth/googlelogin",{name,email},{withCredentials:true})
+      console.log(result.data)
+  } catch (error) {
+    console.error("Google signup error:", error);
+  }
+};
+    return (
     <div className="w-[100vw] h-[100vh] bg-gradient-to-l from-[#141414] to-[#0c2025] text-[white] flex flex-col items-center justify-start">
       <div
         className="w-[100%] h-[80px] flex items-center pt-3  justify-start px-[30px] gap-[10px] cursor-pointer"
@@ -53,7 +72,7 @@ catch(error){
           onSubmit={handleSignup}
           className="w-[90%] h-[90%] flex flex-col items-center justify-start gap-[20px]"
         >
-          <div className="w-[90%] h-[50px] bg-[#42656cae] rounded-lg flex items-center justify-center gap-[10px] py-[20px] cursor-pointer">
+          <div className="w-[90%] h-[50px] bg-[#42656cae] rounded-lg flex items-center justify-center gap-[10px] py-[20px] cursor-pointer" onClick={googleSignup}>
             <img src={google} alt="" className="w-[20px]" /> Registration with
             Google
           </div>
