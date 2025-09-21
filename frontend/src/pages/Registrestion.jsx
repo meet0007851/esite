@@ -8,6 +8,7 @@ import { IoEye } from "react-icons/io5";
 import { authDataContext } from "../context/authContext";
 import { auth, provider } from "../../utils/Firebase";
 import axios from 'axios'
+import { userDataContext } from "../context/userContext";
 function Registration() {
 
   const [show,setShow] =useState(false);
@@ -15,6 +16,8 @@ function Registration() {
   let [name,SetName] = useState("")
   let [email,setEmail] = useState("");
   let [password,setPassword] = useState("");
+  let [userData,getCurrentUser] = useContext(userDataContext)
+
   let navigate = useNavigate();
   
 
@@ -26,6 +29,8 @@ function Registration() {
       { name, email, password },
       { withCredentials: true }
     );
+    getCurrentUser()
+    navigate("/")
     console.log("Signup success:", res.data);
   } catch (error) {
     if (error.response) {
