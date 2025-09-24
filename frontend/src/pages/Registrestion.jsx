@@ -12,12 +12,11 @@ import { userDataContext } from "../context/userContext";
 function Registration() {
 
   const [show,setShow] =useState(false);
-  let {serverUrl} =useContext(authDataContext)
+  let {serverUrl} = useContext(authDataContext)
   let [name,SetName] = useState("")
   let [email,setEmail] = useState("");
   let [password,setPassword] = useState("");
-  let [userData,getCurrentUser] = useContext(userDataContext)
-
+  let {getCurrentUser} = useContext(userDataContext)
   let navigate = useNavigate();
   
 
@@ -51,6 +50,8 @@ function Registration() {
     let email = user.email;
       const result = await axios.post(serverUrl + "/api/auth/googlelogin",{name,email},{withCredentials:true})
       console.log(result.data)
+    navigate("/")
+
   } catch (error) {
     console.error("Google signup error:", error);
   }

@@ -4,7 +4,7 @@ import connectDb from "./config/db.js";
 import cookieParser from "cookie-parser";
 import authRoute from "./routes/AuthRoute.js";
 import cors from "cors";
-import userRoutes from "./routes/UserRoute.js";
+import userRoutes from "./routes/UserRoutes.js";
 
 dotenv.config();
 const port = 8000;

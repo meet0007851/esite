@@ -44,6 +44,7 @@ navigate("/")
 
       const result = await axios.post(serverUrl + "/api/auth/googlelogin",{name,email},{withCredentials:true})
       console.log(result.data)
+      navigate("/")
   } catch (error) {
     console.error("Google signup error:", error);
   }

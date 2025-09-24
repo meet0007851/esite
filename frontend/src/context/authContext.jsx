@@ -9,7 +9,7 @@ function AuthContext({ children }) {
   const value = {
     serverUrl
   }
-
+  
   return (
     <authDataContext.Provider value={value}>
       {children}
