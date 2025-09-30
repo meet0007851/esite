@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import authRoute from "./routes/AuthRoute.js";
 import cors from "cors";
 import userRoutes from "./routes/UserRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
 
 dotenv.config();
 const port = 8000;
@@ -31,6 +32,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoutes);
+app.use("/api/product", productRoutes);
 
 
 // Start server
