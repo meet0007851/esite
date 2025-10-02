@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import BackGround from "../component/BackGround";
 import Hero from "../component/Hero";
+import Product from "./Product.jsx";
+import OurPolicy from "../component/OurPolicy";
+import NewLatterBox from "../component/NewLatterBox";
+import Footer from "../component/Footer";
 
 function Home() {
   const heroData = [
@@ -21,16 +25,29 @@ function Home() {
 
   return (
     <div className="overflow-x-hidden top-[70px] relative">
-      <div className="w-[100vw] lg:h-[100vh] md:h-[50vh] sm:h-[30vh] bg-gradient-to-l from-[#141414] to-[#0c2025]">
+      {/* Hero Section */}
+      <div className="w-[100vw] lg:h-[100vh] md:h-[50vh] sm:h-[30vh] bg-gradient-to-l from-[#141414] to-[#0c2025] relative">
+        
+        {/* Background */}
         <BackGround heroCount={heroCount} />
-        <Hero
-          heroCount={heroCount}
-          setHeroCount={setHeroCount}
-          heroData={heroData[heroCount]}
-        />
+
+        {/* Hero Content */}
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <Hero
+            heroCount={heroCount}
+            setHeroCount={setHeroCount}
+            heroData={heroData[heroCount]}
+          />
+        </div>
       </div>
+
+      {/* Products Section */}
+      <Product />
+      <OurPolicy/>
+      <NewLatterBox/>
+      <Footer/>
     </div>
   );
 }
 
-export default Home;  
+export default Home;

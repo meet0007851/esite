@@ -11,10 +11,12 @@ import { authDataContext } from "../context/authContext";
 import { MdContacts } from "react-icons/md";
 import { HiOutlineCollection } from "react-icons/hi";
 import axios from "axios";
+import { shopDataContext } from "../context/shopContext";
 function Nav() {
   let { getCurrentUser, userData } = useContext(userDataContext);
+  let { search,setSearch,showSearch,setShowSearch} = useContext(shopDataContext)
   let { serverUrl } = useContext(authDataContext);
-  let [showSearch, setShowSearch] = useState(false);
+ 
   let [showProfile, setShowProfile] = useState(false);
   
   let navigate = useNavigate();
@@ -66,13 +68,13 @@ function Nav() {
       <div className="flex items-center gap-5 relative">
         {!showSearch && (
           <IoSearchCircleOutline
-            onClick={() => setShowSearch((prev) => !prev)}
+            onClick={() => {setShowSearch(prev => !prev);navigate("/collection")}}
             className="w-9 h-9 cursor-pointer  text-black hover:text-gray-700 transition-colors"
           />
         )}
         {showSearch && (
           <IoSearchCircle
-            onClick={() => setShowSearch((prev) => !prev)}
+            onClick={() => setShowSearch(prev => !prev)}
             className="w-9 h-9 cursor-pointer  text-black hover:text-gray-700 transition-colors "
           />
         )}
@@ -80,12 +82,12 @@ function Nav() {
         {!userData ? (
           <FaUserCircle
             className="w-8 h-8  text-black hover:text-gray-700 transition-colors cursor-pointer"
-            onClick={() => setShowProfile((prev) => !prev)}
+            onClick={() => setShowProfile(prev => !prev)}
           />
         ) : (
           <div
             className="w-[30px] h-[30px] cursor-pointer text-white bg-[#080808] rounded-full flex items-center justify-center"
-            onClick={() => setShowProfile((prev) => !prev)}
+            onClick={() => setShowProfile(prev => !prev)}
           >
             {userData?.name ? userData.name.slice(0, 1).toUpperCase() : "?"}
           </div>
@@ -102,7 +104,7 @@ function Nav() {
           <input
             type="text"
             className="lg:w-[50%] w-[80%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]"
-            placeholder="search here"
+            placeholder="search here" onChange={(e)=>{setSearch(e.target.value)}} value={search} 
           />
         </div>
       )}

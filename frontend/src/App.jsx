@@ -5,7 +5,7 @@ import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import Nav from "./component/nav.jsx";
 import { userDataContext } from "./context/userContext.jsx";
-import About from "./pages/about.jsx";
+import About from "./pages/About.jsx";
 import Collection from "./pages/Collection.jsx";
 import Contact from "./pages/Contact.jsx";
 import Product from "./pages/Product.jsx"
