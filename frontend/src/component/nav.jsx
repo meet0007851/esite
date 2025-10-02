@@ -48,16 +48,16 @@ function Nav() {
       {/* Menu Section */}
       <div className="w-[50%] lg:w-[40%]hidden md:flex">
         <ul className="hidden md:flex items-center  justify-center gap-5">
-          <li className="text-sm font-medium text-white bg-black/80 px-5 py-2 rounded-2xl cursor-pointer transition-all duration-300 hover:bg-black hover:shadow-md hover:scale-105">
+          <li className="text-sm font-medium text-white bg-black/80 px-5 py-2 rounded-2xl cursor-pointer transition-all duration-300 hover:bg-black hover:shadow-md hover:scale-105" onClick={()=>navigate("/")}>
             HOME
           </li>
-          <li className="text-sm font-medium text-white bg-black/80 px-5 py-2 rounded-2xl cursor-pointer transition-all duration-300 hover:bg-black hover:shadow-md hover:scale-105">
+          <li className="text-sm font-medium text-white bg-black/80 px-5 py-2 rounded-2xl cursor-pointer transition-all duration-300 hover:bg-black hover:shadow-md hover:scale-105" onClick={()=>navigate("/collection")}>
             COLLECTION
           </li>
-          <li className="text-sm font-medium text-white bg-black/80 px-5 py-2 rounded-2xl cursor-pointer transition-all duration-300 hover:bg-black hover:shadow-md hover:scale-105">
+          <li className="text-sm font-medium text-white bg-black/80 px-5 py-2 rounded-2xl cursor-pointer transition-all duration-300 hover:bg-black hover:shadow-md hover:scale-105" onClick={()=>navigate("/about")}>
             ABOUT
           </li>
-          <li className="text-sm font-medium text-white bg-black/80 px-5 py-2 rounded-2xl cursor-pointer transition-all duration-300 hover:bg-black hover:shadow-md hover:scale-105">
+          <li className="text-sm font-medium text-white bg-black/80 px-5 py-2 rounded-2xl cursor-pointer transition-all duration-300 hover:bg-black hover:shadow-md hover:scale-105" onClick={()=>navigate("/contact")}>
             CONTACT
           </li>
         </ul>
@@ -101,7 +101,7 @@ function Nav() {
         <div className=" w-[100%] h-[60px] bg-[#d8f6f9dd] absolute top-[100%] left-0 right-0 flex items-center justify-center">
           <input
             type="text"
-            className="w-[50%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]"
+            className="lg:w-[50%] w-[80%] h-[60%] bg-[#233533] rounded-[30px] px-[50px] placeholder:text-white text-[white] text-[18px]"
             placeholder="search here"
           />
         </div>
@@ -124,7 +124,7 @@ function Nav() {
               <li
                 className="w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer "
                 onClick={() => {
-                  handleLogout();
+                  handleLogout();setShowProfile(false)
                 }}
               >
                  
@@ -135,30 +135,35 @@ function Nav() {
               
               Orders
             </li>
-            <li className="w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer ">
-          
+            <li className="w-[100%] hover:bg-[#2f2f2f] px-[15px] py-[10px] cursor-pointer " 
+             onClick={() => {
+                  ()=>navigate("/about");setShowProfile(false)
+                }}
+             >
+            
               About
             </li>
           </ul>
         </div>
       )}
      <div className="w-[100vw] h-[90px] fixed bottom-0 text-[12px] left-0 bg-[#191818] md:hidden flex items-center justify-between px-[20px]">
-  <button className="text-white flex items-center justify-center flex-col gap-[2px]">
-    <IoMdHome className="w-[25px] h-[25px] text-white" />
+  <button className="text-white flex items-center justify-center flex-col gap-[2px]" onClick={()=>navigate("/")}> 
+    <IoMdHome className="w-[28px] h-[28px] text-white" />
     Home
   </button>
-  <button className="text-white flex items-center justify-center flex-col gap-[2px]">
-    <MdContacts className="w-[25px] h-[25px] text-white" />
+  <button className="text-white flex items-center justify-center flex-col gap-[2px]" onClick={()=>navigate("/collection")}>
+    <MdContacts className="w-[28px] h-[28px] text-white" />
     Collection
   </button>
-  <button className="text-white flex items-center justify-center flex-col gap-[2px]">
-    <HiOutlineCollection className="w-[25px] h-[25px] text-white" />
+  <button className="text-white flex items-center justify-center flex-col gap-[2px]" onClick={()=>navigate("/contact")}>
+    <HiOutlineCollection className="w-[28px] h-[28px] text-white" />
     Contact
   </button>
-  <button className="text-white flex items-center justify-center flex-col gap-[2px]">
-    <MdOutlineShoppingCart className="w-[25px] h-[25px] text-white" />
+  <button className="text-white flex items-center justify-center flex-col gap-[2px]" >
+    <MdOutlineShoppingCart className="w-[28px] h-[28px] text-white" />
     Cart
   </button>
+  <p className=" absolute h-[18px] w-[18px] flex items-center justify-center bg-white px-[5px] py-[2px] text-black font-semibold  rounded-full text-[9px] top-[8px] right-[18px]">10</p>
 </div>
 
     </nav>
