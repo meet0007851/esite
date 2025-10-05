@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import Registration from "./pages/Registrestion.jsx"
 import Home from "./pages/Home.jsx";
+import ProductDetail from "./pages/ProductDetail.jsx";
 import Login from "./pages/Login.jsx";
 import Nav from "./component/nav.jsx";
 import { userDataContext } from "./context/userContext.jsx";
@@ -36,6 +37,8 @@ function App() {
         <Route path="/collection" element={userData?<Collection/>:<Navigate to="/login" state={{from:location.pathname}}/> } />
         <Route path="/contact" element={userData?<Contact/>:<Navigate to="/login" state={{from:location.pathname}}/> } />
         <Route path="/product" element={userData?<Product/>:<Navigate to="/login" state={{from:location.pathname}}/> } />
+        <Route path="/productdetail/:productId" element={userData?<ProductDetail/>:<Navigate to="/login" state={{from:location.pathname}}/> } />
+      
       </Routes>
     </>
   );
